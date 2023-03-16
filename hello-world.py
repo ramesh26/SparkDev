@@ -1,8 +1,10 @@
-import pyspark
-sc = pyspark.SparkContext('local[*]')
+from pyspark import SparkConf
+from pyspark import SparkContext
 
-txt = sc.textFile('/text.csv')
+conf = SparkConf()
+conf.setMaster('spark://LAPTOP-LAI03S4B.localdomain:7077')
+conf.setAppName('spark-basic')
+sc = SparkContext(conf=conf)
+
+txt = sc.textFile('text.csv')
 print(txt.count())
-
-python_lines = txt.filter(lambda line: 'python' in line.lower())
-print(python_lines.count())
